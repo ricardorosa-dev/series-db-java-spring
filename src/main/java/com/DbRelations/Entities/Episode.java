@@ -24,9 +24,12 @@ import lombok.Data;
 public class Episode {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = false, unique = true)
 	private int id;
+	
+	@Column(nullable = false)
+	private int season;
 	
 	@Column(name = "episode_number", nullable = true)
 	private int episodeNumber;

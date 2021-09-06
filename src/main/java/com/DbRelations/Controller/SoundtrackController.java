@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.DbRelations.Entities.Soundtrack;
+import com.DbRelations.Entities.SoundtrackProjection;
 import com.DbRelations.Repository.SoundtrackRepository;
 
 @RestController
@@ -24,9 +25,13 @@ public class SoundtrackController {
 	}
 	
 	@GetMapping
-	public List<Soundtrack> getSoundtracks() {
-		return repository.findAll();
+	public List<SoundtrackProjection> getAllSoundtracks() {
+		return repository.getAllSoundtracks();
 	}
+//	@GetMapping
+//	public List<Soundtrack> getSoundtracks() {
+//		return repository.findAll();
+//	}
 	
 	@PostMapping
 	public Soundtrack addSoundtrack(@RequestBody final Soundtrack soundtrack) {

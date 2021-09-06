@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.DbRelations.Entities.Series;
+import com.DbRelations.Entities.SeriesProjection;
 import com.DbRelations.Repository.SeriesRepository;
 
 @RestController
@@ -27,9 +28,12 @@ public class SeriesController {
 	}
 	
 	@GetMapping
-	public List<Series> getSeries() {
-		return seriesRepository.findAll();
+	public List<SeriesProjection> getAllSeries() {
+		return seriesRepository.getAllSeries();
 	}
+//	public List<Series> getSeries() {
+//		return seriesRepository.findAll();
+//	}
 	
 	@GetMapping(path = "{seriesId}")
 	public Optional<Series> getSeriesById(@PathVariable("seriesId") int id) {

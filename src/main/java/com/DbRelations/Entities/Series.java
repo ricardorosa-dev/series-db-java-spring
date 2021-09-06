@@ -1,5 +1,6 @@
 package com.DbRelations.Entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -8,11 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,12 +24,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@JsonSerialize(using = SeriesJsonSerializer.class)
 public class Series {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = false, unique = true)
 	private int id;
 	
@@ -56,4 +55,20 @@ public class Series {
 	)
 	@JsonIgnoreProperties(value = {"seriesId"})
 	private List<Episode> episodes;
+	
+	@ManyToMany(
+			mappedBy = "series",
+			cascade = CascadeType.ALL
+	)
+	@JsonIgnoreProperties(value = {"seriesId"})
+	private List<Actor> actors = new ArrayList<>();
+	
+//	@OneToOne(mappedBy = "seriesId")
+//	@JsonIgnoreProperties(value = {"seriesId"})
+//	private Actor actor;
+	
+		
+	public void addActor(Actor incomingActor) {
+		actors.add(incomingActor);
+	}
 }
